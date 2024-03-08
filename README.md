@@ -1,12 +1,18 @@
 # Variatio
+[![GitHub Issues](https://img.shields.io/github/issues/dmitry-brazhenko/Variatio.svg)](https://github.com/dmitry-brazhenko/Variatio/issues)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 Variatio is an experimental Python library designed for advanced A/B testing analysis. It leverages statistical techniques and machine learning, including variance reduction through CUPED and integration with CatBoost for predictive insights. Variatio is ideal for data scientists and researchers looking to obtain deeper insights from their A/B testing efforts.
 
 ## Features
 
-- Statistical Significance Testing: Compare metrics between control and test groups easily.
-- CUPED Adjustments: Use Controlled-experiment Using Pre-Experiment Data (CUPED) techniques for variance reduction.
-- Machine Learning Integration: Leverage CatBoost for predictive modeling and insights.
+This tool streamlines A/B testing by automatically calculating all the classic metrics behind the scenes. Simply provide your data, and it will compute the metrics you request, delivering them in a visually appealing report. Here are some of the key features:
+
+- **Statistical Significance Testing:** Easily compare metrics between control and test groups, with all necessary calculations done for you.
+- **CUPED Adjustments:** This experimental extension utilizes Controlled-experiment Using Pre-Experiment Data (CUPED) techniques for variance reduction. It innovatively employs user properties as covariates and leverages CatBoost regression, moving beyond traditional linear approaches to enhance A/B test sensitivity.
+- **Machine Learning Integration:** Seamlessly integrate with CatBoost for predictive modeling and insights, enriching your analysis with advanced machine learning techniques.
+
+
 
 ## Installation
 
