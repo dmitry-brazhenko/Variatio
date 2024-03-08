@@ -90,7 +90,8 @@ from variatio import VariatioAnalyzer
 import pandas as pd
 
 event_data = pd.DataFrame({
-    "timestamp": pd.to_datetime(["2023-01-01 00:00:00", "2023-01-01 01:00:00", "2023-01-01 02:00:00",
+    "timestamp": pd.to_datetime(["2023-01-01 00:00:00", "2023-01-01 01:00:00", 
+                                 "2023-01-01 02:00:00",
                   "2023-01-01 03:00:00", "2023-01-01 04:00:00"]),
     "userid": [7, 4, 5, 7, 3],
     "event_name": ["purchase", "purchase", "purchase", "purchase", "login"],
@@ -99,7 +100,8 @@ event_data = pd.DataFrame({
 
 # Creating the user_allocations DataFrame
 user_allocations = pd.DataFrame({
-    "timestamp": pd.to_datetime(["2022-12-15 00:00:00", "2022-12-15 01:00:00", "2022-12-15 02:00:00",
+    "timestamp": pd.to_datetime(["2022-12-15 00:00:00", "2022-12-15 01:00:00", 
+                                 "2022-12-15 02:00:00",
                   "2022-12-15 03:00:00", "2022-12-15 04:00:00"]),
     "userid": [1, 2, 3, 4, 5],
     "abgroup": ["A", "B", "B", "B", "A"]
