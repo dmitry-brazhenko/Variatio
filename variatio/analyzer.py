@@ -141,7 +141,7 @@ class VariatioAnalyzer:
             MetricResult(result_intest, self.control_group_name, self.test_group_names, stat_test)))
         return result_intest
 
-    def save(self):
+    def save_report(self, filename: str):
         res = format_metrics_to_html(self.calculated_metrics, self.control_group_name, self.test_group_names)
-        with open('results.html', 'w') as f:
+        with open(filename, 'w') as f:
             f.write(res)

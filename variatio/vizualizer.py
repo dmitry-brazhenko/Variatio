@@ -1,60 +1,74 @@
-def format_metrics_to_html(metrics, control_group, test_groups):
-    # Incorporating CSS styles directly within the HTML output
-    html = """
-    <html>
-    <head>
-        <style>
-            .significant { background-color: #4CAF50; color: white; }
-            .moderate { background-color: #8BC34A; color: white; }
-            .insignificant { background-color: #F44336; color: white; }
-            .neutral { background-color: #FFC107; color: black; }
-            td:hover::after {
-                content: attr(data-significance);
-                position: absolute;
-                margin-left: 10px;
-                white-space: nowrap;
-                border: 1px solid #ddd;
-                background-color: #f9f9f9;
-                padding: 5px;
-                z-index: 1;
-            }
-        </style>
-    </head>
-    <body>
-    <table border='1'>
-    <tr><th>Metric Type</th><th>Parameters</th><th>Control Group Value</th>"""
+import math
+from typing import List
 
-    # Adding headers for test groups with additional columns for differences
-    for group in test_groups:
-        html += f"<th>{group} Value</th><th>{group} Diff</th><th>{group} Diff (%)</th>"
-    html += "</tr>"
+from variatio.metrics import MetricType, Metric
+
+
+def describe_metric(metric: Metric) -> str:
+    metric_type = metric.metrictype
+    params = metric.metricparams
+
+    if metric_type == MetricType.EVENT_COUNT_PER_USER:
+        return f"Count of '{params.event_name}' events per user."
+
+    elif metric_type == MetricType.EVENT_ATTRIBUTE_SUM_PER_USER:
+        return f"Sum of '{params.attribute_name}' for '{params.event_name}' events per user."
+
+    elif metric_type == MetricType.CONVERSION_RATE:
+        return f"Conversion rate to '{params.event_name}' event per user."
+
+    else:
+        return "Unknown metric type."
+
+
+def format_metrics_to_html(metrics: List[Metric], control_group: str, test_groups: List[str]):
+    # Helper function to determine the color based on p-value and difference
+    def get_color(pval, diff):
+        if pval > 0.05:
+            return 'grey'
+        if 0.01 < pval <= 0.05:
+            return 'lightgreen' if diff > 0 else 'lightcoral'
+        return 'green' if diff > 0 else 'red'
+
+    # Start of the HTML string with enhanced styles for centering and aesthetics
+    html_str = '''
+    <style>
+        body {display: flex; justify-content: center; margin: 0; height: 100vh; align-items: center;}
+        table {border-collapse: collapse; width: 80%; margin: auto;}
+        td, th {text-align: center; padding: 8px; border: 1px solid #ddd;}
+        td, th {min-width: 100px; max-width: 400px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+        table {table-layout: fixed; width: auto;}
+        th {background-color: #f2f2f2;}
+        .grey {background-color: grey;}
+        .lightgreen {background-color: lightgreen;}
+        .lightcoral {background-color: lightcoral;}
+        .green {background-color: green;}
+        .red {background-color: red;}
+        tr:hover {background-color: #f5f5f5;}
+    </style>
+    <table>
+        <tr><th>Metric</th><th>''' + control_group + '''</th>'''
+
+    for test_group in test_groups:
+        html_str += '<th>' + test_group + '</th>'
+    html_str += '</tr>'
 
     for metric in metrics:
-        data = metric.result.data
-        significance_data = metric.result.stat_significance
+        metric_name = describe_metric(metric)
+        html_str += f'<tr><td>{metric_name}</td>'
+        control_value = metric.result.data[control_group]
+        html_str += f'<td>{control_value:.2f}</td>'
 
-        # Extract parameters for display
-        param_details = ', '.join(
-            [f'{key}: {value}' for key, value in metric.metricparams.__dict__.items() if value is not None])
+        for test_group in test_groups:
+            test_value = metric.result.data[test_group]
+            pval = metric.result.stat_significance[test_group]
+            diff = ((test_value - control_value) / control_value) * 100 if control_value != 0 else float('inf')
+            diff_rounded = int(round(diff, 0)) if control_value != 0 else 0
+            color = get_color(pval, diff)
+            title_text = f'P-value: {pval:.4f}'
+            html_str += f'<td class="{color}" title="{title_text}">{test_value:.2f}<br/>({diff_rounded}%)</td>'
 
-        # Metric type and parameters
-        html += f"<tr><td>{metric.metrictype.name}</td>"
-        html += f"<td>{param_details}</td>"
-        html += f"<td>{data[control_group]:.2f}</td>"
+        html_str += '</tr>'
 
-        # Control and Test group values, with significance coloring
-        for group in test_groups:
-            p_value = significance_data.get(group, 1)  # Default p-value to 1 if not found
-            cell_class = "significant" if p_value < 0.05 else "moderate" if p_value < 0.1 else "insignificant"
-            test_val = data.get(group, 0)
-            diff = test_val - data[control_group]
-            diff_percentage = (diff / data[control_group] * 100) if data[control_group] else 0
-            html += f"<td class='{cell_class}' data-significance='p-value: {p_value:.4f}'>{test_val:.2f}</td>"
-            html += f"<td class='{cell_class}'>{diff:+.2f}</td>"
-            html += f"<td class='{cell_class}'>{diff_percentage:+.2f}%</td>"
-
-        html += "</tr>"
-
-    html += "</table>"
-    html += "</body></html>"
-    return html
+    html_str += '</table>'
+    return html_str

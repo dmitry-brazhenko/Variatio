@@ -161,3 +161,4 @@ cython_debug/
 /catboost_info/
 /results.html
 /tests/catboost_info/
+/examples/catboost_info/
