@@ -57,6 +57,9 @@ def test_calculate_metrics(user_properties):
     assert conversion_rate.loc['B'][0] == pytest.approx(0.085106, rel=1e-4)
     assert len(analyzer.calculated_metrics) == 3
 
+    # testing that report does not fail and file is saved
+    analyzer.save_report("tempfile.html")
+
 
 # simple check that significance metrics are different due to user properties being used
 def test_calculate_significance():
