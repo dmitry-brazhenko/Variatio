@@ -1,4 +1,5 @@
 # Variatio
+[![PyPI version](https://img.shields.io/pypi/v/variatio.svg)](https://pypi.org/project/variatio/)
 [![GitHub Issues](https://img.shields.io/github/issues/dmitry-brazhenko/Variatio.svg)](https://github.com/dmitry-brazhenko/Variatio/issues)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
@@ -16,7 +17,11 @@ This tool streamlines A/B testing by automatically calculating all the classic m
 
 ## Installation
 
-Install Variatio directly from the source:
+```bash
+pip install variatio
+```
+
+or install Variatio directly from the source:
 
 ```bash
 git clone https://github.com/dmitry_brazhenko/Variatio.git
