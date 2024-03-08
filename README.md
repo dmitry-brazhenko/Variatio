@@ -133,7 +133,10 @@ After calculating the desired metrics, you can save them to an HTML file for eas
 analyzer.save_report("abtest_report.html")
 ```
 
-This report provides a visual and interactive way to explore the results of your A/B testing analysis.
+Here's a sample report showcasing meticulously calculated metrics, organized in an easy-to-analyze table format.
+
+![](examples/metrics_example.png)
+
 
 ## Contribution Guidelines
 
