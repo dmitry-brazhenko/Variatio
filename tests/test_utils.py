@@ -46,7 +46,7 @@ def generate_user_allocations():
     np.random.seed(42)  # For reproducible results
     user_ids = np.arange(1, 101)
     abgroups = np.random.choice(['A', 'B'], size=100, p=[0.5, 0.5])
-    ab_timestamps = pd.date_range(start="2022-12-15", periods=100, freq='D')
+    ab_timestamps = pd.date_range(start="2022-12-15  00:00", periods=100, freq='D')
 
     ab_test_allocations = pd.DataFrame({
         'timestamp': ab_timestamps,
