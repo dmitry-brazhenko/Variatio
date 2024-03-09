@@ -20,7 +20,7 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Set up Python
       uses: actions/setup-python@v3
@@ -43,13 +43,15 @@ jobs:
     env:
       MAJOR_VERSION: '0'
       MINOR_VERSION: '0'
-      PATCH_VERSION: '5'
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Echo GITHUB_RUN_NUMBER
-      run: echo $GITHUB_RUN_NUMBER
+      run: |
+        echo "GITHUB_RUN_NUMBER: $GITHUB_RUN_NUMBER"
+        echo "GITHUB_RUN_ID: $GITHUB_RUN_ID"
+        $PATCH_VERSION = $GITHUB_RUN_NUMBER - 6
 
     - name: Set up Python
       uses: actions/setup-python@v3
