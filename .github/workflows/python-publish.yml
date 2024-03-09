@@ -48,6 +48,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Echo GITHUB_RUN_NUMBER
+      run: echo $GITHUB_RUN_NUMBER
+
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
@@ -60,7 +63,7 @@ jobs:
     - name: Update version in pyproject.toml
       run: |
         VERSION="${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.PATCH_VERSION }}" # Construct the version string
-        python -c "import toml; pyproject = toml.load('pyproject.toml'); pyproject['tool']['poetry']['version'] = '$VERSION'; toml.dump(pyproject, open('pyproject.toml', 'w'))"
+        python -c "import toml; pyproject = toml.load('pyproject.toml'); pyproject['project']['version'] = '$VERSION'; toml.dump(pyproject, open('pyproject.toml', 'w'))"
 
     - name: Build package
       run: python -m build
