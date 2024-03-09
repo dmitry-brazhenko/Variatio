@@ -3,14 +3,13 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
+dynamic = ["dependencies"]
 name = "variatio"
-version = "0.0.3"
-dependencies = [
-    "scikit-learn>=1.2.0",
-    "catboost>=1.2.3",
-    "pandas>=1.4.0",
-    "scipy>=1.10.0",
-]
+version = "0.0.4"
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
 requires-python = ">=3.8"
 authors = [
     { name = "Dmitry Brazhenko", email = "brazhenko.dmitry@gmail.com" },
