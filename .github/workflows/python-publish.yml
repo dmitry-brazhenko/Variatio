@@ -40,6 +40,10 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     # This job runs only if the 'test' job completes successfully on all matrix configurations
+    env:
+      MAJOR_VERSION: '0'
+      MINOR_VERSION: '0'
+      PATCH_VERSION: '5'
 
     steps:
     - uses: actions/checkout@v3
@@ -49,10 +53,14 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Install build tools
+    - name: Install necessary tools
       run: |
-        python -m pip install --upgrade pip
-        pip install build
+        python -m pip install --upgrade pip build toml
+
+    - name: Update version in pyproject.toml
+      run: |
+        VERSION="${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.PATCH_VERSION }}" # Construct the version string
+        python -c "import toml; pyproject = toml.load('pyproject.toml'); pyproject['tool']['poetry']['version'] = '$VERSION'; toml.dump(pyproject, open('pyproject.toml', 'w'))"
 
     - name: Build package
       run: python -m build
