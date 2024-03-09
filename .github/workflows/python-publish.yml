@@ -47,11 +47,13 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Echo GITHUB_RUN_NUMBER
+    - name: Echo GITHUB_RUN_NUMBER and adjust PATCH_VERSION
       run: |
         echo "GITHUB_RUN_NUMBER: $GITHUB_RUN_NUMBER"
         echo "GITHUB_RUN_ID: $GITHUB_RUN_ID"
-        $PATCH_VERSION = $GITHUB_RUN_NUMBER - 6
+        PATCH_VERSION=$(($GITHUB_RUN_NUMBER - 6))
+        echo "PATCH_VERSION: $PATCH_VERSION"
+
 
     - name: Set up Python
       uses: actions/setup-python@v5
