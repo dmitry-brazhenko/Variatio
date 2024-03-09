@@ -18,6 +18,7 @@ maintainers = [
     { name = "Dmitry Brazhenko", email = "brazhenko.dmitry@gmail.com" }
 ]
 description = "An experimental Python library for advanced A/B testing analysis, leveraging statistical techniques and ML for deeper insights."
+long_description = "An experimental Python library for advanced A/B testing analysis, leveraging statistical techniques and ML for deeper insights."
 readme = "README.md"
 license = { file = "LICENSE" }
 keywords = []
