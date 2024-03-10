@@ -11,7 +11,6 @@ This tool streamlines A/B testing by automatically calculating all the classic m
 
 - **Statistical Significance Testing:** Easily compare metrics between control and test groups, with all necessary calculations done for you.
 - **CUPED Adjustments:** This experimental extension utilizes Controlled-experiment Using Pre-Experiment Data (CUPED) techniques for variance reduction. It innovatively employs user properties as covariates and leverages CatBoost regression, moving beyond traditional linear approaches to enhance A/B test sensitivity.
-- **Machine Learning Integration:** Seamlessly integrate with CatBoost for predictive modeling and insights, enriching your analysis with advanced machine learning techniques.
 
 
 
