@@ -1,5 +1,6 @@
 # Variatio
 [![PyPI version](https://img.shields.io/pypi/v/variatio.svg)](https://pypi.org/project/variatio/)
+[![Build Status](https://img.shields.io/github/workflow/status/dmitry-brazhenko/Variatio/CI)](
 [![GitHub Issues](https://img.shields.io/github/issues/dmitry-brazhenko/Variatio.svg)](https://github.com/dmitry-brazhenko/Variatio/issues)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
